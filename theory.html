@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原理与公式 · 极化与析出电势</title>
+<meta name="description" content="能斯特方程、电化学极化与浓差极化、析出电势判据、电解食盐水等典型实例，以及常见误区。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232f6fe4'/%3E%3Cpath d='M13.5 3 6 14h5l-1 6 8-11h-5l1-6Z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 14h5.2L9 22l9-12.5h-5.4L13.5 2Z" fill="#fff"/></svg>
+      </span>
+      <span class="txt">极化与析出电势<small>Electrochemistry Lab</small></span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html">首页</a>
+      <a href="simulator.html">模拟器</a>
+      <a href="theory.html" aria-current="page">原理</a>
+      <a href="practice.html">练习</a>
+      <a href="simulator.html" class="nav-cta">开始模拟</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="page-head">
+    <div>
+      <p class="kicker">原理与公式</p>
+      <h1>从平衡电势到析出顺序</h1>
+      <p class="lead">电极电势告诉你“想不想反应”，超电势告诉你“实际要多大推动力”，两者相加才是析出电势 —— 也只有它才能决定析出顺序。</p>
+    </div>
+    <div class="head-actions">
+      <a class="btn btn-primary" href="simulator.html">在模拟器中验证</a>
+      <a class="btn btn-ghost" href="practice.html">做配套练习</a>
+    </div>
+  </section>
+
+  <div class="article">
+    <nav class="toc" aria-label="本页目录">
+      <h2>本页目录</h2>
+      <ol>
+        <li><a href="#nernst">1. 能斯特方程</a></li>
+        <li><a href="#polarization">2. 极化与超电势</a></li>
+        <li><a href="#electrochem">　2.1 电化学极化</a></li>
+        <li><a href="#conc">　2.2 浓差极化</a></li>
+        <li><a href="#factors">　2.3 影响因素</a></li>
+        <li><a href="#order">3. 析出电势与顺序</a></li>
+        <li><a href="#cases">4. 典型实例</a></li>
+        <li><a href="#myths">5. 常见误区</a></li>
+        <li><a href="#glossary">6. 术语速查</a></li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <h2 id="nernst"><span class="h-num">01</span>能斯特方程</h2>
+      <p>标准电极电势 <code>E°</code> 只描述“所有物质都处于标准态”时的电势。真实溶液里浓度几乎不可能是 1 mol/L，于是需要用<strong>能斯特方程</strong>把浓度折算进去：</p>
+
+      <div class="eq">
+        E = E° + (RT / nF) · ln(a<sub>Ox</sub> / a<sub>Red</sub>)
+        <span class="cap">a 为活度；稀溶液中常用浓度代替。R = 8.314 J·mol⁻¹·K⁻¹，F = 96485 C·mol⁻¹。</span>
+      </div>
+
+      <p>把常数代入、换成常用对数，25 ℃ 时得到课堂上最常见的形式：</p>
+
+      <div class="eq">
+        E = E° + (0.0592 / n) · lg(c<sub>Ox</sub> / c<sub>Red</sub>)
+        <span class="cap">0.0592 V = 2.303RT/F 在 298 K 的数值，因此它只随温度改变，与 n 无关。</span>
+      </div>
+
+      <p>使用时有两条容易被忽略的规则：</p>
+      <ul>
+        <li><strong>纯固体与纯液体活度取 1。</strong>所以 Cu²⁺/Cu 只与 c(Cu²⁺) 有关，Zn²⁺/Zn 同理；H₂ 在常压下也按 1 处理。</li>
+        <li><strong>系数要进入指数。</strong>Cl₂ + 2e⁻ ⇌ 2Cl⁻ 的 n = 2，c(Cl⁻) 取平方，化简后每十倍浓度变化对应 0.0592 V，而不是 0.0296 V。</li>
+      </ul>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>电对</th><th>E° / V</th><th>25 ℃ 的能斯特式</th></tr></thead>
+          <tbody>
+            <tr><td>Cu²⁺ / Cu</td><td class="num">+0.34</td><td><code>E = 0.34 + 0.0296 lg c(Cu²⁺)</code></td></tr>
+            <tr><td>H⁺ / H₂</td><td class="num">0.00</td><td><code>E = 0 − 0.0592 pH</code></td></tr>
+            <tr><td>Zn²⁺ / Zn</td><td class="num">−0.76</td><td><code>E = −0.76 + 0.0296 lg c(Zn²⁺)</code></td></tr>
+            <tr><td>O₂ / OH⁻</td><td class="num">+0.40</td><td><code>E = 0.40 − 0.0592 lg c(OH⁻)</code></td></tr>
+            <tr><td>Cl₂ / Cl⁻</td><td class="num">+1.36</td><td><code>E = 1.36 − 0.0592 lg c(Cl⁻)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="example">
+        <div class="ex-head">例题 1 <span class="tag">单电对</span></div>
+        <div class="ex-body">
+          <p>求 25 ℃、c(Cu²⁺) = 0.010 mol/L 时 Cu²⁺/Cu 的平衡电势；若阴极超电势为 0.10 V，实际析出电势是多少？</p>
+          <ol class="steps-mini">
+            <li>E = 0.34 + (0.0592 / 2) · lg 0.010 = 0.34 − 0.0592 = <strong>0.281 V</strong></li>
+            <li>φ<sub>c</sub> = E − η<sub>c</sub> = 0.281 − 0.10 = <strong>0.181 V</strong></li>
+          </ol>
+          <p class="muted" style="font-size:12.5px">浓度从 1 mol/L 降到 0.01 mol/L，平衡电势下降了 0.0592 V；超电势再让它下降 0.10 V。两者方向相同，但机理完全不同。</p>
+        </div>
+      </div>
+
+      <h2 id="polarization"><span class="h-num">02</span>极化与超电势</h2>
+      <p>上面的计算针对的是<strong>平衡态</strong>：没有电流通过，电极上正逆反应速率相等。一旦通电，电极电势就会偏离平衡值，这种现象称为<strong>极化</strong>，偏离的大小就是<strong>超电势</strong>：</p>
+
+      <div class="eq">
+        η = |φ − E<sub>平</sub>| ≥ 0
+        <span class="cap">η 永远取正值；方向由电极反应决定，见下式。</span>
+      </div>
+
+      <div class="eq">
+        阴极：φ<sub>c</sub> = E<sub>平</sub> − η<sub>c</sub>　（更负）<br>
+        阳极：φ<sub>a</sub> = E<sub>平</sub> + η<sub>a</sub>　（更正）
+        <span class="cap">超电势是“额外推动力”：想让还原发生，电势必须比平衡值更低；想让氧化发生，必须比平衡值更高。</span>
+      </div>
+
+      <div class="callout key">
+        <span class="ic">关</span>
+        <p><b>记住方向，就不会算错符号。</b>阴极是“往下拉”，阳极是“往上推”。模拟器里的<b>实线</b>总是从虚线出发：阴极向负方向、阳极向正方向偏移。</p>
+      </div>
+
+      <h3 id="electrochem">2.1 电化学极化（活化极化）</h3>
+      <p>电极反应包含一系列步骤：离子扩散到电极表面、失去溶剂化层、吸附、电荷转移、产物脱附。其中<strong>电荷转移步骤</strong>往往最慢，需要额外的电势来“推”过活化能势垒，这就是电化学极化。</p>
+      <p>它与电流密度 <code>i</code> 的关系可用 Tafel 方程描述：</p>
+
+      <div class="eq">
+        η = a + b · lg i
+        <span class="cap">b 为 Tafel 斜率，常见 0.06–0.12 V/decade；a 与电极材料、表面状态、温度有关。</span>
+      </div>
+
+      <p>由此可见，电化学极化对<strong>电极材料</strong>极其敏感。同一个析氢反应，在镀铂黑电极上超电势只有几十毫伏，在锌或汞表面却可高达 0.7–1.0 V —— 这既是析氢过电位造成能量损失的原因，也是电镀与电池中选择电极材料的依据。</p>
+
+      <div class="callout tip">
+        <span class="ic">i</span>
+        <p>搅拌溶液<strong>几乎不能</strong>减小电化学极化，因为它慢在电荷转移而不是传质。这一点常被用来区分两类极化。</p>
+      </div>
+
+      <h3 id="conc">2.2 浓差极化</h3>
+      <p>当反应消耗离子的速度超过扩散补充的速度时，电极表面附近的离子浓度 <code>c<sub>s</sub></code> 会低于本体浓度 <code>c<sub>b</sub></code>。由能斯特方程，浓度差直接转化成电势差：</p>
+
+      <div class="eq">
+        η<sub>conc</sub> = (0.0592 / n) · lg(c<sub>b</sub> / c<sub>s</sub>)
+        <span class="cap">c<sub>s</sub> 越接近 0，η 越大；当 c<sub>s</sub> → 0 时 η → ∞，此时电流达到极限。</span>
+      </div>
+
+      <p>极限电流密度由传质决定：</p>
+
+      <div class="eq">
+        i<sub>L</sub> = n F D c<sub>b</sub> / δ
+        <span class="cap">D 为扩散系数，δ 为扩散层厚度。</span>
+      </div>
+
+      <p>因此浓差极化具有几个鲜明特征：<strong>溶液越稀、电流越大、搅拌越差，极化越严重</strong>；充分搅拌或升温可以显著削弱它。本站模拟器的“浓差极化”模式用 <code>η = (0.0592/n)·(−lg c)</code> 做了简化，因此把浓度滑到最低时偏离最明显。</p>
+
+      <h3 id="factors">2.3 影响超电势的因素</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>因素</th><th>电化学极化</th><th>浓差极化</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>电流密度 ↑</td><td>显著增大</td><td>显著增大</td><td>η ≈ a + b lg i，近似对数增长</td></tr>
+            <tr><td>温度 ↑</td><td>减小</td><td>减小</td><td>交换电流密度增大、扩散加快</td></tr>
+            <tr><td>搅拌 / 流动</td><td>几乎不变</td><td>明显减小</td><td>减薄扩散层，提高极限电流</td></tr>
+            <tr><td>浓度 ↑</td><td>几乎不变</td><td>减小</td><td>本体浓度越高，浓差越小</td></tr>
+            <tr><td>电极材料与表面</td><td>非常敏感</td><td>不敏感</td><td>交换电流密度可相差几个数量级</td></tr>
+            <tr><td>电极真实面积</td><td>减小（真实电流密度下降）</td><td>减小</td><td>多孔电极表观电流密度低</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>除此之外，溶液电阻 <code>R</code> 引起的<strong>欧姆极化</strong>也会抬高槽电压，但它发生在溶液与膜中，不属于电极极化。完整的槽电压写作：</p>
+
+      <div class="eq">
+        U<sub>槽</sub> = (φ<sub>a</sub> − φ<sub>c</sub>) + iR + U<sub>接触</sub>
+        <span class="cap">φ<sub>a</sub> − φ<sub>c</sub> 已包含两侧超电势；本站模拟器只计算这一项。</span>
+      </div>
+
+      <h2 id="order"><span class="h-num">03</span>析出电势与析出顺序</h2>
+      <p>把平衡电势与超电势合在一起，就得到<strong>析出电势</strong>：</p>
+
+      <div class="eq">
+        阴极析出电势：φ<sub>c</sub> = E<sub>平</sub> − η<sub>c</sub><br>
+        阳极析出电势：φ<sub>a</sub> = E<sub>平</sub> + η<sub>a</sub>
+      </div>
+
+      <p>多种离子共存时，<strong>比较的正是析出电势</strong>：</p>
+
+      <div class="callout key">
+        <span class="ic">判</span>
+        <p><b>阴极（还原）：析出电势越正，越先析出。</b><br><b>阳极（氧化）：析出电势越负，越先析出。</b><br>注意是“实际析出电势”，不是标准电势 E°，也不只是平衡电势。</p>
+      </div>
+
+      <p>为什么方向相反？因为阴极反应消耗电子，电势越正意味着该电对越容易得到电子；阳极反应失去电子，电势越负意味着越容易失去电子。用一句话记：<strong>阴极挑“正”的，阳极挑“负”的。</strong></p>
+
+      <div class="example">
+        <div class="ex-head">例题 2 <span class="tag">三选一</span></div>
+        <div class="ex-body">
+          <p>25 ℃，某溶液含 Cu²⁺、H⁺、Zn²⁺，浓度均为 0.1 mol/L，阴极超电势统一取 0.10 V。阴极上谁先析出？</p>
+          <div class="table-wrap" style="margin:10px 0 0">
+            <table class="data">
+              <thead><tr><th>离子</th><th>E<sub>平</sub> / V</th><th>φ<sub>c</sub> / V</th><th>顺序</th></tr></thead>
+              <tbody>
+                <tr><td>Cu²⁺</td><td class="num">+0.31</td><td class="num">+0.21</td><td>1</td></tr>
+                <tr><td>H⁺</td><td class="num">−0.06</td><td class="num">−0.16</td><td>2</td></tr>
+                <tr><td>Zn²⁺</td><td class="num">−0.79</td><td class="num">−0.89</td><td>3</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:10px">所以阴极依次析出 Cu、H₂、Zn。三者电势差距很大（约 0.7 V 量级），改变浓度（0.01–1 mol/L 范围内最多移动约 0.1 V）或统一超电势都无法改变这个顺序 —— 这也是为什么可以从含锌溶液中电积铜而几乎不析出锌。</p>
+        </div>
+      </div>
+
+      <p>当两种离子的析出电势很接近时，浓度与超电势就能改变顺序。工程上常利用这一点：电镀黄铜时加入配位剂，让 Cu 与 Zn 的析出电势靠近，从而实现<strong>共沉积</strong>；反之，若要分离两种金属，则应让它们的析出电势差尽量大。</p>
+
+      <h2 id="cases"><span class="h-num">04</span>典型实例</h2>
+
+      <h3>4.1 电解食盐水：为什么阳极出氯气？</h3>
+      <p>阳极上有两个竞争反应：</p>
+      <div class="eq">
+        2Cl⁻ → Cl₂ + 2e⁻　　E° = +1.36 V<br>
+        2H₂O → O₂ + 4H⁺ + 4e⁻　　E° = +1.23 V（pH 0）
+      </div>
+      <p>两者标准电势只差 <strong>0.13 V</strong>。而氧气析出在石墨、金属阳极上的超电势通常有 0.4–0.8 V，氯气的超电势却很小（约 0.05 V）。于是氧的实际析出电势被抬到氯之上，<strong>Cl₂ 反而先析出</strong>。工业氯碱电解使用涂层钛阳极（DSA）正是为了在保持低氯超电势的同时抑制析氧。</p>
+      <div class="callout warn">
+        <span class="ic">注</span>
+        <p>该结论与 pH 密切相关：碱性条件下 O₂/H₂O 的平衡电势会大幅下降，析氧变得更容易。本站模拟器采用 <b>O₂/OH⁻（E° = +0.40 V）</b>这一碱性电对，所以在默认参数下 OH⁻ 先于 Cl⁻ 被氧化 —— 这与“酸性浓盐水”中的工业结论并不矛盾，只是条件不同。</p>
+      </div>
+      <p>阴极侧则是水的还原：<code>2H₂O + 2e⁻ → H₂ + 2OH⁻</code>。Na⁺ 的平衡电势低至 −2.71 V，远在氢气之后，因此钠离子留在溶液中。</p>
+
+      <h3>4.2 电解水：1.23 V 与 1.8 V 的差距</h3>
+      <p>理论上分解水只需要 1.23 V，但实际电解槽通常要 1.8–2.0 V。多出来的电压几乎都花在<strong>析氢与析氧的超电势</strong>以及溶液欧姆压降上，最终变成热。降低超电势（高性能催化剂、提高温度、增大电极面积）一直是电解水制氢的核心问题。</p>
+
+      <h3>4.3 电解精炼铜：顺序决定纯度</h3>
+      <p>粗铜作阳极、纯铜作阴极，电解液为硫酸铜溶液。通电后：</p>
+      <ul>
+        <li>阳极上 Cu 比 OH⁻ 更容易氧化（φ<sub>a</sub> 更低），因此铜溶解进入溶液；</li>
+        <li>比铜活泼的 Zn、Ni、Fe 也会溶解，但它们的析出电势比 Cu 更负，<strong>不会在阴极析出</strong>，留在电解液中；</li>
+        <li>比铜不活泼的 Ag、Au、Pt 不溶解，直接落成<strong>阳极泥</strong>，成为提炼贵金属的原料；</li>
+        <li>阴极上只有 Cu²⁺ 优先还原，得到 99.95% 以上的电解铜。</li>
+      </ul>
+      <p>这正是“析出电势决定顺序”的工业版本：一个顺序，同时完成了提纯与副产物回收。</p>
+
+      <h2 id="myths"><span class="h-num">05</span>常见误区</h2>
+
+      <div class="callout warn">
+        <span class="ic">✕</span>
+        <p><b>只看 E° 判断顺序。</b>E° 是标准态的数据。浓度改变 0.06 V/decade，超电势可以改变零点几伏，二者都可能让顺序颠倒。永远比较<strong>实际析出电势</strong>。</p>
+      </div>
+      <div class="callout warn">
+        <span class="ic">✕</span>
+        <p><b>把超电势一律当成“电势降低”。</b>阴极确实更负，但阳极是<strong>更正</strong>。若统一写成减号，阳极的计算必错。</p>
+      </div>
+      <div class="callout warn">
+        <span class="ic">✕</span>
+        <p><b>以为搅拌能消除所有极化。</b>搅拌只改善传质，对电荷转移迟缓导致的电化学极化几乎无效。</p>
+      </div>
+      <div class="callout warn">
+        <span class="ic">✕</span>
+        <p><b>认为浓度越低越容易析出。</b>对阴极，浓度低使平衡电势更负，反而更难还原；对 Cl⁻ 这类阳极反应物，浓度低使其更难氧化。浓度对两极的作用方向需要具体分析。</p>
+      </div>
+      <div class="callout warn">
+        <span class="ic">✕</span>
+        <p><b>把 O₂ 与 Cl₂ 的先后当成固定结论。</b>它取决于 pH、氯离子浓度、电极材料与电流密度。改变条件，顺序就可能改变 —— 这正是电化学有趣的地方。</p>
+      </div>
+
+      <h2 id="glossary"><span class="h-num">06</span>术语速查</h2>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>术语</th><th>含义</th></tr></thead>
+          <tbody>
+            <tr><td>标准电极电势 E°</td><td>标准态（活度为 1）下相对 SHE 的电极电势，25 ℃ 数值可查表。</td></tr>
+            <tr><td>平衡电势 E<sub>平</sub></td><td>给定浓度下由能斯特方程算出的电势，无净电流时的电极电势。</td></tr>
+            <tr><td>析出电势 φ</td><td>实际发生析出（沉积或放出气体）时的电极电势，等于 E<sub>平</sub> 加上超电势的修正。</td></tr>
+            <tr><td>超电势 η</td><td>|φ − E<sub>平</sub>|，恒为非负值。</td></tr>
+            <tr><td>电化学极化</td><td>电荷转移步骤迟缓引起的极化，与电极材料密切相关，Tafel 关系。</td></tr>
+            <tr><td>浓差极化</td><td>电极表面与本体浓度差引起的极化，搅拌可显著减小。</td></tr>
+            <tr><td>极限电流</td><td>传质所能支持的最大电流，此时表面浓度趋近于零。</td></tr>
+            <tr><td>分解电压</td><td>使电解开始持续进行所需的最小外加电压，约等于 φ<sub>a</sub> − φ<sub>c</sub>。</td></tr>
+            <tr><td>槽电压</td><td>实际电解槽两端电压，等于分解电压加上欧姆压降与接触压降。</td></tr>
+            <tr><td>SHE</td><td>标准氢电极，电极电势的零点参考。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <span class="ic">→</span>
+        <p>读到这里，建议打开<a href="simulator.html">电解池模拟器</a>，把「电化学极化 → 浓差极化 → 无极化」依次切换一遍，再对照标尺上的实线与虚线，确认自己对方向和大小都有直觉。</p>
+      </div>
+
+      <div class="pager">
+        <a href="index.html"><span>上一页</span>← 首页</a>
+        <a href="practice.html" style="text-align:right"><span>下一页</span>练习与闯关 →</a>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 14h5.2L9 22l9-12.5h-5.4L13.5 2Z" fill="#fff"/></svg></span>
+          极化与析出电势
+        </div>
+        <p>面向电化学基础教学的交互式页面：把能斯特方程、超电势与析出顺序放在同一张电势标尺上观察。</p>
+      </div>
+      <div class="foot-col">
+        <h4>页面</h4>
+        <a href="index.html">首页</a>
+        <a href="simulator.html">电解池模拟器</a>
+        <a href="theory.html">原理与公式</a>
+        <a href="practice.html">练习与闯关</a>
+      </div>
+      <div class="foot-col">
+        <h4>约定</h4>
+        <p>电极电势均相对标准氢电极（SHE）；阴极取还原方向，阳极取氧化方向；超电势 η ≥ 0。</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 极化与析出电势 · 教学演示</span>
+      <span>能斯特系数 0.0592 V · 电势单位 V</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>练习与闯关 · 极化与析出电势</title>
+<meta name="description" content="析出顺序排序闯关、概念自测与随机数据的计算练习，检验对超电势与析出电势的掌握。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232f6fe4'/%3E%3Cpath d='M13.5 3 6 14h5l-1 6 8-11h-5l1-6Z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 14h5.2L9 22l9-12.5h-5.4L13.5 2Z" fill="#fff"/></svg>
+      </span>
+      <span class="txt">极化与析出电势<small>Electrochemistry Lab</small></span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html">首页</a>
+      <a href="simulator.html">模拟器</a>
+      <a href="theory.html">原理</a>
+      <a href="practice.html" aria-current="page">练习</a>
+      <a href="simulator.html" class="nav-cta">开始模拟</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="page-head">
+    <div>
+      <p class="kicker">练习与闯关</p>
+      <h1>把规则用起来</h1>
+      <p class="lead">排序、概念、计算三组练习都可以反复重做；计算题每次换一组数据，练到不看公式也能判断方向。所有答案都会当场给出解析。</p>
+    </div>
+    <div class="head-actions">
+      <a class="btn btn-ghost" href="theory.html">回顾原理</a>
+      <a class="btn btn-primary" href="simulator.html">打开模拟器</a>
+    </div>
+  </section>
+
+  <div class="practice-grid">
+    <!-- ============ 左列 ============ -->
+    <div class="practice-col">
+
+      <!-- 排序闯关 -->
+      <section class="panel" aria-labelledby="game-title">
+        <div class="ctrl-head">
+          <h2 id="game-title">排序闯关 · 析出顺序</h2>
+          <div class="spacer"></div>
+          <button type="button" class="btn btn-ghost btn-sm" id="reshuffle">重新打乱</button>
+        </div>
+
+        <div class="preset-row" id="condRow" role="group" aria-label="练习条件">
+          <button type="button" class="chip-btn" data-cond="textbook" aria-pressed="true">教材默认</button>
+          <button type="button" class="chip-btn" data-cond="ideal" aria-pressed="false">无极化</button>
+          <button type="button" class="chip-btn" data-cond="dilute" aria-pressed="false">浓差极化</button>
+          <button type="button" class="chip-btn" data-cond="strong" aria-pressed="false">强极化</button>
+        </div>
+        <p class="answer-line" id="condLine">当前条件：电化学极化，η<sub>c</sub> = η<sub>a</sub> = 0.10 V，各离子 0.1 mol/L（Cl⁻ 1.0 mol/L）。</p>
+
+        <div class="game-cols" style="margin-top:14px">
+          <div class="game-col">
+            <h4>阴极（还原）· 先 → 后</h4>
+            <div id="sortCathode"></div>
+          </div>
+          <div class="game-col">
+            <h4>阳极（氧化）· 先 → 后</h4>
+            <div id="sortAnode"></div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn btn-primary btn-sm" id="submitGame" type="button">提交判断</button>
+          <button class="btn btn-ghost btn-sm" id="revealGame" type="button">看正确答案</button>
+        </div>
+        <p class="game-fb" id="gameFb" role="status" style="margin-top:10px"></p>
+      </section>
+
+      <!-- 计算练习 -->
+      <section class="panel" aria-labelledby="calc-title">
+        <div class="ctrl-head">
+          <h2 id="calc-title">计算练习 · 随机数据</h2>
+          <div class="spacer"></div>
+          <button type="button" class="btn btn-ghost btn-sm" id="newData">换一组数据</button>
+        </div>
+
+        <div class="calc-q" id="calcCu">
+          <p>① 25 ℃ 下，溶液中 Cu²⁺ 浓度为 <b id="cuConc">0.010</b> mol/L。求 Cu²⁺/Cu 的平衡电势 E<sub>平</sub>，以及阴极超电势 η<sub>c</sub> = <b id="cuEta">0.10</b> V 时的实际析出电势 φ<sub>c</sub>。</p>
+          <div class="calc-fields">
+            <div class="field">
+              <label for="cuEq">平衡电势 E<sub>平</sub></label>
+              <div class="row"><input class="num-input" id="cuEq" inputmode="decimal" autocomplete="off" placeholder="0.000"><span class="unit">V</span></div>
+            </div>
+            <div class="field">
+              <label for="cuPhi">实际析出电势 φ<sub>c</sub></label>
+              <div class="row"><input class="num-input" id="cuPhi" inputmode="decimal" autocomplete="off" placeholder="0.000"><span class="unit">V</span></div>
+            </div>
+          </div>
+          <div class="calc-fb" id="cuFb" role="status"></div>
+          <details class="solution">
+            <summary>查看解题步骤</summary>
+            <div class="sol-body" id="cuSol"></div>
+          </details>
+        </div>
+
+        <div class="calc-q" id="calcCl">
+          <p>② 溶液中 Cl⁻ 浓度为 <b id="clConc">0.100</b> mol/L。求 Cl₂/Cl⁻ 的平衡电势 E<sub>平</sub>，以及阳极超电势 η<sub>a</sub> = <b id="clEta">0.10</b> V 时的实际析出电势 φ<sub>a</sub>。</p>
+          <div class="calc-fields">
+            <div class="field">
+              <label for="clEq">平衡电势 E<sub>平</sub></label>
+              <div class="row"><input class="num-input" id="clEq" inputmode="decimal" autocomplete="off" placeholder="0.000"><span class="unit">V</span></div>
+            </div>
+            <div class="field">
+              <label for="clPhi">实际析出电势 φ<sub>a</sub></label>
+              <div class="row"><input class="num-input" id="clPhi" inputmode="decimal" autocomplete="off" placeholder="0.000"><span class="unit">V</span></div>
+            </div>
+          </div>
+          <div class="calc-fb" id="clFb" role="status"></div>
+          <details class="solution">
+            <summary>查看解题步骤</summary>
+            <div class="sol-body" id="clSol"></div>
+          </details>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+          <button class="btn btn-primary btn-sm" id="checkCalc" type="button">检查答案</button>
+          <span class="muted" style="font-size:11.5px;align-self:center">允许误差 ±0.008 V</span>
+        </div>
+        <p class="game-fb" id="calcFb" role="status" style="margin-top:10px"></p>
+      </section>
+    </div>
+
+    <!-- ============ 右列 ============ -->
+    <div class="practice-col">
+      <section class="panel" aria-labelledby="quiz-title">
+        <div class="ctrl-head">
+          <h2 id="quiz-title">概念自测 · 7 题</h2>
+          <div class="spacer"></div>
+          <button type="button" class="btn btn-ghost btn-sm" id="resetQuiz">清空</button>
+        </div>
+
+        <div class="quiz-q" data-q="1" data-answer="B">
+          <p><span class="qn">Q1</span>浓差极化产生的主要原因是：</p>
+          <label class="opt"><input type="radio" name="q1" value="A"><span class="ol">A</span><span>电荷转移步骤本身迟缓</span></label>
+          <label class="opt"><input type="radio" name="q1" value="B"><span class="ol">B</span><span>电极表面附近离子浓度与本体浓度存在差异</span></label>
+          <label class="opt"><input type="radio" name="q1" value="C"><span class="ol">C</span><span>溶液欧姆电阻过大</span></label>
+          <label class="opt"><input type="radio" name="q1" value="D"><span class="ol">D</span><span>温度变化引起电势漂移</span></label>
+          <div class="fb" data-ok="✔ 正确。浓差极化源于传质跟不上电极反应，表面浓度偏离本体；搅拌或升温可以减小它。" data-no="✘ 正确答案是 B。浓差极化来自电极表面与本体之间的浓度差，扩散来不及补充被消耗的离子。"></div>
+        </div>
+
+        <div class="quiz-q" data-q="2" data-answer="C">
+          <p><span class="qn">Q2</span>电化学极化（活化极化）主要来源于：</p>
+          <label class="opt"><input type="radio" name="q2" value="A"><span class="ol">A</span><span>溶液中离子的扩散速率差异</span></label>
+          <label class="opt"><input type="radio" name="q2" value="B"><span class="ol">B</span><span>电极与溶液之间的欧姆压降</span></label>
+          <label class="opt"><input type="radio" name="q2" value="C"><span class="ol">C</span><span>电荷转移步骤的迟缓（活化能势垒）</span></label>
+          <label class="opt"><input type="radio" name="q2" value="D"><span class="ol">D</span><span>溶液搅拌不均匀</span></label>
+          <div class="fb" data-ok="✔ 正确。电化学极化由电荷转移步骤的活化能势垒造成，因此对电极材料极其敏感，搅拌基本无效。" data-no="✘ 正确答案是 C。活化极化慢在电荷转移，而不是扩散或欧姆电阻。"></div>
+        </div>
+
+        <div class="quiz-q" data-q="3" data-answer="B">
+          <p><span class="qn">Q3</span>考虑阴极超电势后，实际析出电势与平衡电势相比：</p>
+          <label class="opt"><input type="radio" name="q3" value="A"><span class="ol">A</span><span>更正</span></label>
+          <label class="opt"><input type="radio" name="q3" value="B"><span class="ol">B</span><span>更负</span></label>
+          <label class="opt"><input type="radio" name="q3" value="C"><span class="ol">C</span><span>保持不变</span></label>
+          <label class="opt"><input type="radio" name="q3" value="D"><span class="ol">D</span><span>先正后负，无法确定</span></label>
+          <div class="fb" data-ok="✔ 正确。φc = E平 − ηc，阴极需要更负的电势才能推动还原。" data-no="✘ 正确答案是 B。阴极的“额外推动力”方向是更负，写成 φc = E平 − ηc。"></div>
+        </div>
+
+        <div class="quiz-q" data-q="4" data-answer="B">
+          <p><span class="qn">Q4</span>阳极上，下列哪种物质越先被氧化？</p>
+          <label class="opt"><input type="radio" name="q4" value="A"><span class="ol">A</span><span>析出电势越正</span></label>
+          <label class="opt"><input type="radio" name="q4" value="B"><span class="ol">B</span><span>析出电势越负</span></label>
+          <label class="opt"><input type="radio" name="q4" value="C"><span class="ol">C</span><span>标准电极电势越正</span></label>
+          <label class="opt"><input type="radio" name="q4" value="D"><span class="ol">D</span><span>浓度越高</span></label>
+          <div class="fb" data-ok="✔ 正确。阳极要失去电子，析出电势越负越容易氧化；注意比较的是实际析出电势 φa = E平 + ηa。" data-no="✘ 正确答案是 B。阴极越正越先，阳极越负越先 —— 方向相反，这是最易混的一点。"></div>
+        </div>
+
+        <div class="quiz-q" data-q="5" data-answer="A">
+          <p><span class="qn">Q5</span>充分搅拌溶液，主要能减小哪一种极化？</p>
+          <label class="opt"><input type="radio" name="q5" value="A"><span class="ol">A</span><span>浓差极化</span></label>
+          <label class="opt"><input type="radio" name="q5" value="B"><span class="ol">B</span><span>电化学极化</span></label>
+          <label class="opt"><input type="radio" name="q5" value="C"><span class="ol">C</span><span>欧姆极化</span></label>
+          <label class="opt"><input type="radio" name="q5" value="D"><span class="ol">D</span><span>三类都能明显减小</span></label>
+          <div class="fb" data-ok="✔ 正确。搅拌减薄扩散层、加快传质，只对浓差极化有效；电荷转移迟缓与欧姆电阻都不受影响。" data-no="✘ 正确答案是 A。搅拌改善的是传质，只能减小浓差极化。"></div>
+        </div>
+
+        <div class="quiz-q" data-q="6" data-answer="C">
+          <p><span class="qn">Q6</span>关于超电势对电解过程的影响，正确的是：</p>
+          <label class="opt"><input type="radio" name="q6" value="A"><span class="ol">A</span><span>使槽电压降低</span></label>
+          <label class="opt"><input type="radio" name="q6" value="B"><span class="ol">B</span><span>不改变能量消耗</span></label>
+          <label class="opt"><input type="radio" name="q6" value="C"><span class="ol">C</span><span>使实际分解电压高于理论值，能耗增加</span></label>
+          <label class="opt"><input type="radio" name="q6" value="D"><span class="ol">D</span><span>只作用于阳极</span></label>
+          <div class="fb" data-ok="✔ 正确。阴阳两极的超电势都会抬高槽电压，多出来的电能最终转化为热。" data-no="✘ 正确答案是 C。阴极更负、阳极更正，二者共同抬高分解电压。"></div>
+        </div>
+
+        <div class="quiz-q" data-q="7" data-answer="B">
+          <p><span class="qn">Q7</span>能斯特方程中的 0.0592 V 来自：</p>
+          <label class="opt"><input type="radio" name="q7" value="A"><span class="ol">A</span><span>RT / F 在 25 ℃ 的数值</span></label>
+          <label class="opt"><input type="radio" name="q7" value="B"><span class="ol">B</span><span>2.303RT / F 在 25 ℃ 的数值</span></label>
+          <label class="opt"><input type="radio" name="q7" value="C"><span class="ol">C</span><span>nF / RT 在 25 ℃ 的数值</span></label>
+          <label class="opt"><input type="radio" name="q7" value="D"><span class="ol">D</span><span>法拉第常数本身</span></label>
+          <div class="fb" data-ok="✔ 正确。2.303RT/F ≈ 0.0592 V，来自自然对数换成常用对数时的系数 2.303，与 n 无关。" data-no="✘ 正确答案是 B。换底系数 2.303 乘以 RT/F，在 298 K 约为 0.0592 V。"></div>
+        </div>
+
+        <div class="score-line">
+          <button class="btn btn-primary btn-sm" id="checkQuiz" type="button">提交答案</button>
+          <span class="score-pill" id="quizScore">— / 7</span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="callout tip" style="margin-bottom:56px">
+    <span class="ic">→</span>
+    <p>做完之后，回到<a href="simulator.html">模拟器</a>把同一组条件复现一次：拖动浓度与超电势，看实线是否如你所算地移动。眼睛看到的和算出来的对上，才算真的掌握。</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 14h5.2L9 22l9-12.5h-5.4L13.5 2Z" fill="#fff"/></svg></span>
+          极化与析出电势
+        </div>
+        <p>面向电化学基础教学的交互式页面：把能斯特方程、超电势与析出顺序放在同一张电势标尺上观察。</p>
+      </div>
+      <div class="foot-col">
+        <h4>页面</h4>
+        <a href="index.html">首页</a>
+        <a href="simulator.html">电解池模拟器</a>
+        <a href="theory.html">原理与公式</a>
+        <a href="practice.html">练习与闯关</a>
+      </div>
+      <div class="foot-col">
+        <h4>约定</h4>
+        <p>电极电势均相对标准氢电极（SHE）；阴极取还原方向，阳极取氧化方向；超电势 η ≥ 0。</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 极化与析出电势 · 教学演示</span>
+      <span>能斯特系数 0.0592 V · 电势单位 V</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/model.js"></script>
+<script src="assets/js/practice.js"></script>
+</body>
+</html>

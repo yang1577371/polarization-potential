@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>极化与析出电势 · 交互式电化学学习站</title>
+<meta name="description" content="用一张电势标尺看懂能斯特方程、超电势与析出顺序：可交互的电解池模拟、原理讲解与练习。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232f6fe4'/%3E%3Cpath d='M13.5 3 6 14h5l-1 6 8-11h-5l1-6Z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 14h5.2L9 22l9-12.5h-5.4L13.5 2Z" fill="#fff"/></svg>
+      </span>
+      <span class="txt">极化与析出电势<small>Electrochemistry Lab</small></span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html" aria-current="page">首页</a>
+      <a href="simulator.html">模拟器</a>
+      <a href="theory.html">原理</a>
+      <a href="practice.html">练习</a>
+      <a href="simulator.html" class="nav-cta">开始模拟</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="hero-copy fade-in">
+      <p class="kicker">电化学 · 交互式学习站</p>
+      <h1>极化与析出电势</h1>
+      <p class="lead">同样通电，为什么阴极先镀出铜而不是锌？为什么电解食盐水时阳极放出的是氯气？把能斯特方程、超电势和析出顺序放到同一张电势标尺上，答案就一目了然。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="simulator.html">打开交互模拟器 →</a>
+        <a class="btn btn-ghost" href="theory.html">先读原理</a>
+      </div>
+      <div class="hero-meta">
+        <span>✓ 5 组电极电对</span>
+        <span>✓ 3 种极化模型</span>
+        <span>✓ 实时析出排序</span>
+        <span>✓ 可导出图像</span>
+      </div>
+    </div>
+
+    <div class="hero-art fade-in" aria-hidden="true">
+      <svg class="cell-art" viewBox="0 28 520 352" role="presentation" focusable="false">
+        <defs>
+          <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f0f9ff"/>
+            <stop offset="1" stop-color="#d1e6f8"/>
+          </linearGradient>
+          <linearGradient id="cath" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#e29a63"/>
+            <stop offset="1" stop-color="#b25f22"/>
+          </linearGradient>
+          <linearGradient id="anod" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#5cc396"/>
+            <stop offset="1" stop-color="#268055"/>
+          </linearGradient>
+          <clipPath id="beakerClip">
+            <rect x="112" y="113" width="296" height="238" rx="17"/>
+          </clipPath>
+        </defs>
+
+        <!-- 外电路 -->
+        <g fill="none" stroke="#b9c7d8" stroke-width="2.4" stroke-linecap="round">
+          <path d="M195 96 V56 H248"/>
+          <path d="M272 56 H325 V96"/>
+        </g>
+        <g stroke="#8b9cb0" stroke-linecap="round">
+          <path d="M250 46 V66" stroke-width="3"/>
+          <path d="M270 40 V72" stroke-width="3"/>
+        </g>
+        <g fill="#8b9cb0" font-size="11" font-weight="600" text-anchor="middle">
+          <text x="241" y="36">−</text>
+          <text x="280" y="36">+</text>
+        </g>
+
+        <!-- 烧杯与溶液 -->
+        <rect x="110" y="112" width="300" height="240" rx="18" fill="#ffffff" stroke="#c9d8e8" stroke-width="2"/>
+        <g clip-path="url(#beakerClip)">
+          <rect x="112" y="178" width="296" height="174" fill="url(#liq)"/>
+          <line x1="112" y1="178.5" x2="408" y2="178.5" stroke="#a9cbe8" stroke-width="1.6"/>
+        </g>
+
+        <!-- 离子 -->
+        <g stroke="#ffffff" stroke-width="1.2">
+          <circle class="ion" cx="145" cy="210" r="5" fill="#c9702f"/>
+          <circle class="ion" cx="160" cy="296" r="5" fill="#c9702f"/>
+          <circle class="ion" cx="222" cy="250" r="5" fill="#c9702f"/>
+          <circle class="ion" cx="136" cy="254" r="5" fill="#e05252"/>
+          <circle class="ion" cx="250" cy="318" r="5" fill="#e05252"/>
+          <circle class="ion" cx="214" cy="196" r="5" fill="#e05252"/>
+          <circle class="ion" cx="150" cy="334" r="5" fill="#8794a6"/>
+          <circle class="ion" cx="126" cy="232" r="5" fill="#8794a6"/>
+          <circle class="ion" cx="356" cy="206" r="5" fill="#3aa76d"/>
+          <circle class="ion" cx="382" cy="286" r="5" fill="#3aa76d"/>
+          <circle class="ion" cx="348" cy="332" r="5" fill="#3aa76d"/>
+          <circle class="ion" cx="292" cy="222" r="5" fill="#3d7fd1"/>
+          <circle class="ion" cx="300" cy="312" r="5" fill="#3d7fd1"/>
+          <circle class="ion" cx="270" cy="264" r="5" fill="#3d7fd1"/>
+        </g>
+
+        <text x="260" y="344" text-anchor="middle" font-size="9.5" fill="#8a9cb0" opacity="0.85">电解质溶液</text>
+
+        <!-- 电极 -->
+        <g>
+          <rect x="188" y="92" width="14" height="234" rx="5" fill="url(#cath)"/>
+          <rect x="191" y="98" width="4" height="222" rx="2" fill="#ffffff" opacity="0.32"/>
+          <rect x="318" y="92" width="14" height="234" rx="5" fill="url(#anod)"/>
+          <rect x="321" y="98" width="4" height="222" rx="2" fill="#ffffff" opacity="0.32"/>
+        </g>
+
+        <!-- 标注 -->
+        <g font-size="12" font-weight="650" text-anchor="middle">
+          <text x="195" y="372" fill="#c9702f">阴极（−）</text>
+          <text x="325" y="372" fill="#2f9e6b">阳极（+）</text>
+        </g>
+        <g font-size="9.5" fill="#8a9cb0" font-family="ui-monospace, Consolas, monospace">
+          <text x="204" y="188">e⁻ →</text>
+          <text x="330" y="188">← e⁻</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 数据条 ============ -->
+  <div class="facts">
+    <div class="fact"><b>0.0592 <small>V</small></b><span>25 ℃ 时能斯特方程的常数项</span></div>
+    <div class="fact"><b>5 <small>组</small></b><span>候选电极电对，覆盖阴极与阳极</span></div>
+    <div class="fact"><b>2 <small>类</small></b><span>电化学极化与浓差极化模型</span></div>
+  </div>
+
+  <!-- ============ 三个核心概念 ============ -->
+  <section class="section" aria-labelledby="concepts-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">三个概念</p>
+        <h2 id="concepts-title">从平衡，到偏移，再到顺序</h2>
+      </div>
+      <p>理解析出电势只需要三步：算出平衡电势、叠加超电势、比较大小。本站把这三步做成了可以拖动的东西。</p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card concept">
+        <span class="num">01 / NERNST</span>
+        <span class="icon-tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5H7l6 7-6 7h10"/></svg>
+        </span>
+        <h3>能斯特方程</h3>
+        <p>平衡电势不是常数。离子浓度每变化十倍，单电子电对就移动约 0.059 V —— 这是浓度写进电势的方式。</p>
+        <a class="go" href="theory.html#nernst">看推导与例子</a>
+      </article>
+
+      <article class="card concept">
+        <span class="num">02 / OVERPOTENTIAL</span>
+        <span class="icon-tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16c2.6-6 5.1-6 7.7 0s5.1 6 7.7 0"/><path d="M12 3v7"/><path d="m9.4 7.6 2.6 2.6 2.6-2.6"/></svg>
+        </span>
+        <h3>超电势</h3>
+        <p>要让反应真正发生，阴极必须再负一点、阳极必须再正一点。这段“额外推动力”就是超电势，它决定实线偏离虚线多少。</p>
+        <a class="go" href="theory.html#polarization">认识两类极化</a>
+      </article>
+
+      <article class="card concept">
+        <span class="num">03 / ORDER</span>
+        <span class="icon-tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 19V9M10 19V5M15 19v-6M20 19V8"/></svg>
+        </span>
+        <h3>析出顺序</h3>
+        <p>阴极上电势越正越先还原，阳极上电势越负越先氧化。记住这一条，就能读懂电解、电镀与精炼。</p>
+        <a class="go" href="simulator.html">去标尺上验证</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 电势预览 ============ -->
+  <section class="section" aria-labelledby="preview-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">电势一览</p>
+        <h2 id="preview-title">默认条件下，谁先析出？</h2>
+      </div>
+      <p>下列数值取默认参数：各离子 0.1 mol/L（Cl⁻ 为 1.0 mol/L），阴极与阳极超电势均为 0.10 V。</p>
+    </div>
+
+    <div class="card preview">
+      <div class="preview-copy">
+        <span class="tag">默认参数</span>
+        <h3>阴极：Cu²⁺ 先于 H⁺，H⁺ 先于 Zn²⁺</h3>
+        <p>Cu²⁺ 的实际析出电势为 <strong>+0.21 V</strong>，是阴极侧最正的一条；Zn²⁺ 只有 <strong>−0.89 V</strong>，被留在了溶液里。这正是“锌能置换铜、铜不会置换锌”的电势语言。</p>
+        <p class="muted" style="font-size:12.5px">阳极侧 OH⁻（+0.56 V）比 Cl⁻（+1.46 V）更负，因此先被氧化 —— 碱性条件下的结论与食盐水电解并不相同，原因见原理页。</p>
+        <div class="hero-actions" style="margin-top:18px">
+          <a class="btn btn-primary btn-sm" href="simulator.html">拖动滑块试试</a>
+          <a class="btn btn-ghost btn-sm" href="theory.html#order">为什么这样排序</a>
+        </div>
+      </div>
+
+      <div class="preview-chart" role="img" aria-label="默认参数下各电对的实际析出电势：Cu²⁺ 正 0.21 伏，H⁺ 负 0.16 伏，Zn²⁺ 负 0.89 伏，OH⁻ 正 0.56 伏，Cl⁻ 正 1.46 伏">
+        <div class="chart-title">
+          <b>实际析出电势 φ / V</b>
+          <span>η = 0.10 V · 25 ℃</span>
+        </div>
+
+        <div class="bars">
+          <div class="bar-row">
+            <span class="nm">Cu²⁺</span>
+            <div class="track"><span class="zero"></span><span class="bar" style="--a:37.04%;--b:44.81%"></span></div>
+            <span class="val">+0.21</span>
+          </div>
+          <div class="bar-row">
+            <span class="nm">H⁺</span>
+            <div class="track"><span class="zero"></span><span class="bar" style="--a:31.11%;--b:37.04%"></span></div>
+            <span class="val">−0.16</span>
+          </div>
+          <div class="bar-row">
+            <span class="nm">Zn²⁺</span>
+            <div class="track"><span class="zero"></span><span class="bar" style="--a:4.07%;--b:37.04%"></span></div>
+            <span class="val">−0.89</span>
+          </div>
+          <div class="bar-row">
+            <span class="nm">OH⁻</span>
+            <div class="track"><span class="zero"></span><span class="bar anode" style="--a:37.04%;--b:57.78%"></span></div>
+            <span class="val">+0.56</span>
+          </div>
+          <div class="bar-row">
+            <span class="nm">Cl⁻</span>
+            <div class="track"><span class="zero"></span><span class="bar anode" style="--a:37.04%;--b:91.11%"></span></div>
+            <span class="val">+1.46</span>
+          </div>
+        </div>
+
+        <div class="axis" aria-hidden="true">
+          <span style="left:0%">−1.0</span>
+          <span style="left:18.52%">−0.5</span>
+          <span style="left:37.04%">0</span>
+          <span style="left:55.56%">+0.5</span>
+          <span style="left:74.07%">+1.0</span>
+          <span style="left:92.59%">+1.5</span>
+        </div>
+
+        <div class="bars-legend">
+          <span><i style="background:#c9702f"></i>阴极（还原）</span>
+          <span><i style="background:#2f9e6b"></i>阳极（氧化）</span>
+          <span>竖线 = 0 V（SHE）</span>
+          <span>★ 先析出：Cu²⁺ / OH⁻</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 学习路径 ============ -->
+  <section class="section" aria-labelledby="steps-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">学习路径</p>
+        <h2 id="steps-title">三步走完这条标尺</h2>
+      </div>
+      <p>每一页都可以单独使用；按顺序学，概念之间的衔接会更顺。</p>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <span class="step-n">STEP 01</span>
+        <h3>先算平衡电势</h3>
+        <p>用能斯特方程把浓度换算成平衡电势，分清阴极（还原）与阳极（氧化）的符号差异。</p>
+        <a href="theory.html#nernst">阅读：能斯特方程 →</a>
+      </li>
+      <li>
+        <span class="step-n">STEP 02</span>
+        <h3>再叠加超电势</h3>
+        <p>把 η_c 从平衡电势里减掉、把 η_a 加上去。观察浓差极化如何随浓度变化，电化学极化又如何由电流密度决定。</p>
+        <a href="simulator.html">操作：电解池模拟器 →</a>
+      </li>
+      <li>
+        <span class="step-n">STEP 03</span>
+        <h3>最后比较大小</h3>
+        <p>按“阴极取正、阳极取负”的规则排出顺序，并用计算题检验自己是否真的会算。</p>
+        <a href="practice.html">练习：排序与计算 →</a>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta">
+    <div>
+      <h2>动手拖一次，胜过读三遍</h2>
+      <p>左侧调浓度，右侧看实线偏离虚线 —— 超电势不再是公式里的一个字母，而是标尺上一段看得见的距离。</p>
+    </div>
+    <div class="hero-actions" style="margin:0">
+      <a class="btn btn-light" href="simulator.html">进入模拟器</a>
+      <a class="btn btn-outline" href="practice.html">做几道题</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 14h5.2L9 22l9-12.5h-5.4L13.5 2Z" fill="#fff"/></svg></span>
+          极化与析出电势
+        </div>
+        <p>面向电化学基础教学的交互式页面：把能斯特方程、超电势与析出顺序放在同一张电势标尺上观察。</p>
+      </div>
+      <div class="foot-col">
+        <h4>页面</h4>
+        <a href="index.html">首页</a>
+        <a href="simulator.html">电解池模拟器</a>
+        <a href="theory.html">原理与公式</a>
+        <a href="practice.html">练习与闯关</a>
+      </div>
+      <div class="foot-col">
+        <h4>约定</h4>
+        <p>电极电势均相对标准氢电极（SHE）；阴极取还原方向，阳极取氧化方向；超电势 η ≥ 0。</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 极化与析出电势 · 教学演示</span>
+      <span>能斯特系数 0.0592 V · 电势单位 V</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
